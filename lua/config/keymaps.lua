@@ -1,8 +1,18 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+
+--undo(u)
+--redo(ctrl + r)
+--delete a word backwards(db)
+--delete a character backwards (x)
+--highlight line to line(v - character highlight, V-line highlight, ctrl + V - block highlight)
+--find a word(/ then enter a word, n next N prev)
+
+--highlight and delete all
+keymap.set("n", "da", "ggVGd", { desc = "Highlight and delete all" })
+
+--highlight and copy all
+keymap.set("n", "ya", "ggVGy", { desc = "Highlight and copy all" })
 
 --Increment/decrement  normal mod press + or -
 keymap.set("n", "+", "<C-a>")
@@ -21,6 +31,12 @@ keymap.set("n", "<C-m>", "<C-i>", opts)
 keymap.set("n", "te", ":tabedit", opts)
 keymap.set("n", "<tab>", ":tabnext<Return>", opts)
 keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+keymap.set("n", "tf", function()
+  local file = vim.fn.input("File path: ")
+  if file ~= "" then
+    vim.cmd("tabedit " .. file)
+  end
+end, opts)
 
 --Split window (ss split bottom, sv split horizont, sx close window, se correct all wind size )
 keymap.set("n", "ss", ":split<Return>", opts)
